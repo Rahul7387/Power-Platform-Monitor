@@ -1,0 +1,22 @@
+- App As appinfo:
+    BackEnabled: =false
+    OnStart: |-
+        =Set(gAdminConnected, false);
+        Set(gDetailType, "cloud");
+        Set(gDetailTab, "Info");
+        Set(gCurrentEnvName, "Default Environment");
+        Set(gCurrentEnv,
+            First(PowerAutomateManagement.ListEnvironments().value).name);
+        Set(gCurrentEnvName,
+            First(PowerAutomateManagement.ListEnvironments().value)
+                .properties.displayName);
+        Set(gLastRefresh, Now());
+        ClearCollect(gCloudFlows,
+            PowerAutomateManagement.ListFlows(gCurrentEnv).value);
+        ClearCollect(gDesktopFlows,
+            PowerAutomateManagement.ListDesktopFlows(gCurrentEnv).value);
+        ClearCollect(gPowerApps,
+            PowerAppsforMakers.GetApps().value);
+        Set(gFilteredCF, gCloudFlows);
+        Set(gFilteredDF, gDesktopFlows);
+        Set(gFilteredPA, gPowerApps)

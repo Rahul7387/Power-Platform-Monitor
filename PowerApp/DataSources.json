@@ -1,0 +1,20 @@
+{
+  "DataSources": [
+    {
+      "Name": "PowerAutomateManagement",
+      "Type": "Connected",
+      "ConnectionId": "",
+      "DatasetName": "shared",
+      "TableName": "",
+      "ApiId": "/providers/Microsoft.PowerApps/apis/shared_flowmanagement"
+    },
+    {
+      "Name": "PowerAppsforMakers",
+      "Type": "Connected",
+      "ConnectionId": "",
+      "DatasetName": "shared",
+      "TableName": "",
+      "ApiId": "/providers/Microsoft.PowerApps/apis/shared_powerappsforappmakers"
+    }
+  ]
+}

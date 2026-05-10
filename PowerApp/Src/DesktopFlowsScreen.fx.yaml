@@ -1,0 +1,351 @@
+- DesktopFlowsScreen As screen:
+    Fill: =RGBA(248, 250, 252, 1)
+    OnVisible: =ClearCollect(gFilteredDF, gDesktopFlows)
+
+    - DF_NavBg As rectangle:
+        X: =0
+        Y: =0
+        Width: =1366
+        Height: =56
+        Fill: =RGBA(15, 23, 42, 1)
+        BorderStyle: =BorderStyle.None
+    - DF_NavTitle As label:
+        X: =16
+        Y: =0
+        Width: =700
+        Height: =56
+        Text: ="Desktop Flows"
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_NavHome As button:
+        X: =1200
+        Y: =10
+        Width: =152
+        Height: =36
+        Text: ="🏠 Dashboard"
+        Fill: =RGBA(255, 255, 255, 0.15)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        OnSelect: =Navigate(HomeScreen)
+    - DF_SbBg As rectangle:
+        X: =0
+        Y: =56
+        Width: =220
+        Height: =712
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+    - DF_SbHomeBtn As button:
+        X: =0
+        Y: =70
+        Width: =220
+        Height: =38
+        Text: ="🏠  Dashboard"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(HomeScreen)
+    - DF_SbCloudBtn As button:
+        X: =0
+        Y: =116
+        Width: =220
+        Height: =38
+        Text: ="☁  Cloud Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(CloudFlowsScreen)
+    - DF_SbHL As rectangle:
+        X: =0
+        Y: =162
+        Width: =220
+        Height: =38
+        Fill: =RGBA(243, 232, 255, 1)
+        BorderStyle: =BorderStyle.None
+    - DF_SbBar As rectangle:
+        X: =0
+        Y: =162
+        Width: =3
+        Height: =38
+        Fill: =RGBA(107, 33, 168, 1)
+        BorderStyle: =BorderStyle.None
+    - DF_SbDeskLabel As label:
+        X: =14
+        Y: =162
+        Width: =206
+        Height: =38
+        Text: ="🖥  Desktop Flows"
+        Size: =13
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(107, 33, 168, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_SbAppsBtn As button:
+        X: =0
+        Y: =208
+        Width: =220
+        Height: =38
+        Text: ="📱  Power Apps"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(PowerAppsScreen)
+    - DF_SbDiv As rectangle:
+        X: =0
+        Y: =256
+        Width: =220
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - DF_SbAdminBtn As button:
+        X: =12
+        Y: =266
+        Width: =196
+        Height: =36
+        Text: ="⚙  Admin Config"
+        Fill: =RGBA(235, 243, 251, 1)
+        Color: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(AdminScreen)
+    - DF_PageBg As rectangle:
+        X: =220
+        Y: =56
+        Width: =1146
+        Height: =712
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderStyle: =BorderStyle.None
+    - DF_Title As label:
+        X: =248
+        Y: =76
+        Width: =500
+        Height: =32
+        Text: ="Desktop Flows"
+        Size: =20
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DF_Sub As label:
+        X: =248
+        Y: =110
+        Width: =500
+        Height: =22
+        Text: =Concatenate(Text(CountRows(gFilteredDF)), " / ", Text(CountRows(gDesktopFlows)), " flows")
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DF_TbBg As rectangle:
+        X: =248
+        Y: =144
+        Width: =1090
+        Height: =52
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =8
+        RadiusTopRight: =8
+        RadiusBottomLeft: =8
+        RadiusBottomRight: =8
+    - DF_Search As text:
+        X: =260
+        Y: =152
+        Width: =280
+        Height: =36
+        HintText: ="🔍  Search desktop flows…"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        OnChange: |-
+            =ClearCollect(gFilteredDF,
+                Filter(gDesktopFlows,
+                    IsBlank(DF_Search.Text) ||
+                    DF_Search.Text in properties.displayName))
+    - DF_StatusDd As dropdown:
+        X: =552
+        Y: =152
+        Width: =160
+        Height: =36
+        Items: =["All Status", "enabled", "disabled"]
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+    - DF_ModeDd As dropdown:
+        X: =724
+        Y: =152
+        Width: =180
+        Height: =36
+        Items: =["All Modes", "Unattended", "Attended"]
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+    - DF_HdrBg As rectangle:
+        X: =248
+        Y: =206
+        Width: =1090
+        Height: =34
+        Fill: =RGBA(241, 245, 249, 1)
+        RadiusTopLeft: =6
+        RadiusTopRight: =6
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        BorderStyle: =BorderStyle.None
+    - DF_HdrName As label:
+        X: =260
+        Y: =206
+        Width: =250
+        Height: =34
+        Text: ="Flow Name"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_HdrStatus As label:
+        X: =520
+        Y: =206
+        Width: =100
+        Height: =34
+        Text: ="Status"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_HdrMachine As label:
+        X: =630
+        Y: =206
+        Width: =180
+        Height: =34
+        Text: ="Machine"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_HdrMode As label:
+        X: =820
+        Y: =206
+        Width: =120
+        Height: =34
+        Text: ="Run Mode"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_HdrOwner As label:
+        X: =950
+        Y: =206
+        Width: =190
+        Height: =34
+        Text: ="Owner"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - DF_Gallery As gallery.galleryVertical:
+        X: =248
+        Y: =240
+        Width: =1090
+        Height: =526
+        Items: =gFilteredDF
+        TemplateSize: =56
+        ShowScrollbar: =true
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+        - DF_RowBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =1090
+            Height: =56
+            Fill: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(226, 232, 240, 1)
+            BorderThickness: =1
+            OnSelect: |-
+                =Set(gSelectedFlow, ThisItem);
+                Set(gDetailType, "desktop");
+                Navigate(DetailScreen)
+        - DF_Name As label:
+            X: =12
+            Y: =6
+            Width: =256
+            Height: =44
+            Text: =ThisItem.properties.displayName
+            Size: =13
+            FontWeight: =FontWeight.Semibold
+            Color: =RGBA(15, 23, 42, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DF_Status As label:
+            X: =270
+            Y: =6
+            Width: =100
+            Height: =44
+            Text: =If(ThisItem.properties.state = "enabled", "● Active", "● Inactive")
+            Size: =12
+            Color: =If(ThisItem.properties.state = "enabled", RGBA(16,124,16,1), RGBA(196,43,28,1))
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DF_Machine As label:
+            X: =380
+            Y: =6
+            Width: =180
+            Height: =44
+            Text: =Coalesce(ThisItem.properties.machineName, "Unassigned")
+            Size: =12
+            Color: =RGBA(51, 65, 85, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DF_Mode As label:
+            X: =570
+            Y: =6
+            Width: =120
+            Height: =44
+            Text: =Coalesce(ThisItem.properties.runMode, "Attended")
+            Size: =12
+            Color: =RGBA(51, 65, 85, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DF_Owner As label:
+            X: =700
+            Y: =6
+            Width: =260
+            Height: =44
+            Text: =ThisItem.properties.creator.userPrincipalName
+            Size: =11
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DF_ViewBtn As button:
+            X: =984
+            Y: =8
+            Width: =96
+            Height: =40
+            Text: ="Details →"
+            Fill: =RGBA(107, 33, 168, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            FontWeight: =FontWeight.Semibold
+            OnSelect: |-
+                =Set(gSelectedFlow, ThisItem);
+                Set(gDetailType, "desktop");
+                Navigate(DetailScreen)

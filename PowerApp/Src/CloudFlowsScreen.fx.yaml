@@ -1,0 +1,359 @@
+- CloudFlowsScreen As screen:
+    Fill: =RGBA(248, 250, 252, 1)
+    OnVisible: =ClearCollect(gFilteredCF, gCloudFlows)
+
+    - CF_NavBg As rectangle:
+        X: =0
+        Y: =0
+        Width: =1366
+        Height: =56
+        Fill: =RGBA(15, 23, 42, 1)
+        BorderStyle: =BorderStyle.None
+    - CF_NavTitle As label:
+        X: =16
+        Y: =0
+        Width: =700
+        Height: =56
+        Text: ="☁  Cloud Flows"
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - CF_NavHome As button:
+        X: =1200
+        Y: =10
+        Width: =152
+        Height: =36
+        Text: ="🏠 Dashboard"
+        Fill: =RGBA(255, 255, 255, 0.15)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(HomeScreen)
+
+    - CF_SbBg As rectangle:
+        X: =0
+        Y: =56
+        Width: =220
+        Height: =712
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+    - CF_SbHomeBtn As button:
+        X: =0
+        Y: =70
+        Width: =220
+        Height: =38
+        Text: ="🏠  Dashboard"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(HomeScreen)
+    - CF_SbHL As rectangle:
+        X: =0
+        Y: =116
+        Width: =220
+        Height: =38
+        Fill: =RGBA(235, 243, 251, 1)
+        BorderStyle: =BorderStyle.None
+    - CF_SbBar As rectangle:
+        X: =0
+        Y: =116
+        Width: =3
+        Height: =38
+        Fill: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+    - CF_SbCloudLabel As label:
+        X: =14
+        Y: =116
+        Width: =206
+        Height: =38
+        Text: ="☁  Cloud Flows"
+        Size: =13
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 108, 189, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - CF_SbDesktopBtn As button:
+        X: =0
+        Y: =162
+        Width: =220
+        Height: =38
+        Text: ="🖥  Desktop Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(DesktopFlowsScreen)
+    - CF_SbAppsBtn As button:
+        X: =0
+        Y: =208
+        Width: =220
+        Height: =38
+        Text: ="📱  Power Apps"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(PowerAppsScreen)
+    - CF_SbDiv As rectangle:
+        X: =0
+        Y: =256
+        Width: =220
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - CF_SbAdminBtn As button:
+        X: =12
+        Y: =266
+        Width: =196
+        Height: =36
+        Text: ="⚙  Admin Config"
+        Fill: =RGBA(235, 243, 251, 1)
+        Color: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(AdminScreen)
+
+    - CF_PageBg As rectangle:
+        X: =220
+        Y: =56
+        Width: =1146
+        Height: =712
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderStyle: =BorderStyle.None
+    - CF_Title As label:
+        X: =248
+        Y: =76
+        Width: =500
+        Height: =32
+        Text: ="☁  Cloud Flows"
+        Size: =20
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - CF_Sub As label:
+        X: =248
+        Y: =110
+        Width: =500
+        Height: =22
+        Text: =Concatenate(Text(CountRows(gFilteredCF)), " / ", Text(CountRows(gCloudFlows)), " flows")
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    - CF_TbBg As rectangle:
+        X: =248
+        Y: =144
+        Width: =1090
+        Height: =52
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =8
+        RadiusTopRight: =8
+        RadiusBottomLeft: =8
+        RadiusBottomRight: =8
+    - CF_Search As text:
+        X: =260
+        Y: =152
+        Width: =280
+        Height: =36
+        HintText: ="🔍  Search flows or owners…"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        Size: =13
+        OnChange: |-
+            =ClearCollect(gFilteredCF,
+                Filter(gCloudFlows,
+                    IsBlank(CF_Search.Text) ||
+                    CF_Search.Text in properties.displayName ||
+                    CF_Search.Text in properties.creator.userPrincipalName))
+    - CF_StatusDd As dropdown:
+        X: =552
+        Y: =152
+        Width: =160
+        Height: =36
+        Items: =["All Status", "enabled", "disabled"]
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+    - CF_TriggerDd As dropdown:
+        X: =724
+        Y: =152
+        Width: =200
+        Height: =36
+        Items: =["All Triggers", "Scheduled", "Automated", "Instant"]
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+
+    - CF_HdrBg As rectangle:
+        X: =248
+        Y: =206
+        Width: =1090
+        Height: =34
+        Fill: =RGBA(241, 245, 249, 1)
+        RadiusTopLeft: =6
+        RadiusTopRight: =6
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        BorderStyle: =BorderStyle.None
+    - CF_HdrName As label:
+        X: =260
+        Y: =206
+        Width: =254
+        Height: =34
+        Text: ="Flow Name"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - CF_HdrStatus As label:
+        X: =524
+        Y: =206
+        Width: =100
+        Height: =34
+        Text: ="Status"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - CF_HdrTrigger As label:
+        X: =634
+        Y: =206
+        Width: =140
+        Height: =34
+        Text: ="Trigger"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - CF_HdrModified As label:
+        X: =784
+        Y: =206
+        Width: =160
+        Height: =34
+        Text: ="Last Modified"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - CF_HdrOwner As label:
+        X: =954
+        Y: =206
+        Width: =190
+        Height: =34
+        Text: ="Owner"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+
+    - CF_Gallery As gallery.galleryVertical:
+        X: =248
+        Y: =240
+        Width: =1090
+        Height: =526
+        Items: =gFilteredCF
+        TemplateSize: =56
+        ShowScrollbar: =true
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+        - CF_RowBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =1090
+            Height: =56
+            Fill: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(226, 232, 240, 1)
+            BorderThickness: =1
+            OnSelect: |-
+                =Set(gSelectedFlow, ThisItem);
+                Set(gDetailType, "cloud");
+                Navigate(DetailScreen)
+        - CF_Name As label:
+            X: =12
+            Y: =6
+            Width: =258
+            Height: =44
+            Text: =ThisItem.properties.displayName
+            Size: =13
+            FontWeight: =FontWeight.Semibold
+            Color: =RGBA(15, 23, 42, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - CF_Status As label:
+            X: =276
+            Y: =6
+            Width: =100
+            Height: =44
+            Text: =If(ThisItem.properties.state = "enabled", "● Active", "● Inactive")
+            Size: =12
+            Color: =If(ThisItem.properties.state = "enabled", RGBA(16,124,16,1), RGBA(196,43,28,1))
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - CF_Trigger As label:
+            X: =386
+            Y: =6
+            Width: =140
+            Height: =44
+            Text: =Coalesce(First(ThisItem.properties.definitionSummary.triggers).type, "—")
+            Size: =12
+            Color: =RGBA(51, 65, 85, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - CF_Modified As label:
+            X: =536
+            Y: =6
+            Width: =160
+            Height: =44
+            Text: =Text(DateTimeValue(ThisItem.properties.lastModifiedTime), "dd mmm yyyy")
+            Size: =12
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - CF_Owner As label:
+            X: =706
+            Y: =6
+            Width: =248
+            Height: =44
+            Text: =ThisItem.properties.creator.userPrincipalName
+            Size: =11
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - CF_ViewBtn As button:
+            X: =984
+            Y: =8
+            Width: =96
+            Height: =40
+            Text: ="Details →"
+            Fill: =RGBA(15, 108, 189, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            FontWeight: =FontWeight.Semibold
+            OnSelect: |-
+                =Set(gSelectedFlow, ThisItem);
+                Set(gDetailType, "cloud");
+                Navigate(DetailScreen)

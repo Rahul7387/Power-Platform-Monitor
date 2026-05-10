@@ -1,0 +1,674 @@
+- HomeScreen As screen:
+    Fill: =RGBA(248, 250, 252, 1)
+    OnVisible: |-
+        =Set(gLastRefresh, Now());
+        ClearCollect(gCloudFlows,
+            PowerAutomateManagement.ListFlows(gCurrentEnv).value);
+        ClearCollect(gDesktopFlows,
+            PowerAutomateManagement.ListDesktopFlows(gCurrentEnv).value);
+        ClearCollect(gPowerApps,
+            PowerAppsforMakers.GetApps().value)
+
+    # ── Nav bar
+    - NavBg As rectangle:
+        X: =0
+        Y: =0
+        Width: =1366
+        Height: =56
+        Fill: =RGBA(15, 23, 42, 1)
+        BorderStyle: =BorderStyle.None
+    - NavLogo As label:
+        X: =16
+        Y: =0
+        Width: =36
+        Height: =56
+        Text: ="⚡"
+        Size: =22
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - NavTitle As label:
+        X: =56
+        Y: =0
+        Width: =700
+        Height: =56
+        Text: ="Power Platform Monitor"
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - NavEnv As label:
+        X: =986
+        Y: =0
+        Width: =260
+        Height: =56
+        Text: =Concatenate("Env: ", gCurrentEnvName)
+        Size: =12
+        Color: =RGBA(255, 255, 255, 0.7)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - NavRefresh As button:
+        X: =1256
+        Y: =10
+        Width: =96
+        Height: =36
+        Text: ="⟳ Refresh"
+        Fill: =RGBA(255, 255, 255, 0.15)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: |-
+            =Set(gLastRefresh, Now());
+            ClearCollect(gCloudFlows,
+                PowerAutomateManagement.ListFlows(gCurrentEnv).value);
+            ClearCollect(gDesktopFlows,
+                PowerAutomateManagement.ListDesktopFlows(gCurrentEnv).value);
+            ClearCollect(gPowerApps,
+                PowerAppsforMakers.GetApps().value)
+
+    # ── Sidebar
+    - SbBg As rectangle:
+        X: =0
+        Y: =56
+        Width: =220
+        Height: =712
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+    - SbHomeHL As rectangle:
+        X: =0
+        Y: =70
+        Width: =220
+        Height: =38
+        Fill: =RGBA(235, 243, 251, 1)
+        BorderStyle: =BorderStyle.None
+    - SbHomeBar As rectangle:
+        X: =0
+        Y: =70
+        Width: =3
+        Height: =38
+        Fill: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+    - SbHomeLabel As label:
+        X: =14
+        Y: =70
+        Width: =206
+        Height: =38
+        Text: ="🏠  Dashboard"
+        Size: =13
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 108, 189, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - SbCloudBtn As button:
+        X: =0
+        Y: =116
+        Width: =220
+        Height: =38
+        Text: ="☁  Cloud Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Normal
+        Size: =13
+        HoverFill: =RGBA(235, 243, 251, 1)
+        HoverColor: =RGBA(15, 108, 189, 1)
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(CloudFlowsScreen)
+    - SbDesktopBtn As button:
+        X: =0
+        Y: =162
+        Width: =220
+        Height: =38
+        Text: ="🖥  Desktop Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Normal
+        Size: =13
+        HoverFill: =RGBA(235, 243, 251, 1)
+        HoverColor: =RGBA(15, 108, 189, 1)
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(DesktopFlowsScreen)
+    - SbAppsBtn As button:
+        X: =0
+        Y: =208
+        Width: =220
+        Height: =38
+        Text: ="📱  Power Apps"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Normal
+        Size: =13
+        HoverFill: =RGBA(235, 243, 251, 1)
+        HoverColor: =RGBA(15, 108, 189, 1)
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(PowerAppsScreen)
+    - SbDivider As rectangle:
+        X: =0
+        Y: =256
+        Width: =220
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - SbAdminBtn As button:
+        X: =12
+        Y: =266
+        Width: =196
+        Height: =36
+        Text: ="⚙  Admin Config"
+        Fill: =RGBA(235, 243, 251, 1)
+        Color: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        Size: =13
+        OnSelect: =Navigate(AdminScreen)
+    - SbStatus As label:
+        X: =12
+        Y: =708
+        Width: =196
+        Height: =22
+        Text: =If(gAdminConnected, "✅  Connected", "⚠  Not Configured")
+        Size: =11
+        Color: =If(gAdminConnected, RGBA(16,124,16,1), RGBA(180,83,9,1))
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    # ── Page content
+    - PageBg As rectangle:
+        X: =220
+        Y: =56
+        Width: =1146
+        Height: =712
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderStyle: =BorderStyle.None
+    - PageTitle As label:
+        X: =248
+        Y: =76
+        Width: =500
+        Height: =34
+        Text: ="Dashboard"
+        Size: =22
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - PageSub As label:
+        X: =248
+        Y: =112
+        Width: =700
+        Height: =22
+        Text: =Concatenate("Refreshed: ", Text(gLastRefresh, "dd mmm yyyy hh:mm:ss"))
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    # ── Stat cards
+    - Card1Bg As rectangle:
+        X: =248
+        Y: =148
+        Width: =196
+        Height: =90
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - Card1Icon As label:
+        X: =260
+        Y: =148
+        Width: =44
+        Height: =90
+        Text: ="☁"
+        Size: =24
+        Color: =RGBA(15, 108, 189, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - Card1Val As label:
+        X: =310
+        Y: =160
+        Width: =120
+        Height: =40
+        Text: =Text(CountRows(gCloudFlows))
+        Size: =26
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Card1Lbl As label:
+        X: =310
+        Y: =202
+        Width: =120
+        Height: =26
+        Text: ="Cloud Flows"
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    - Card2Bg As rectangle:
+        X: =456
+        Y: =148
+        Width: =196
+        Height: =90
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - Card2Icon As label:
+        X: =468
+        Y: =148
+        Width: =44
+        Height: =90
+        Text: ="✅"
+        Size: =22
+        Color: =RGBA(16, 124, 16, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - Card2Val As label:
+        X: =518
+        Y: =160
+        Width: =120
+        Height: =40
+        Text: =Text(CountRows(Filter(gCloudFlows, state = "enabled")))
+        Size: =26
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Card2Lbl As label:
+        X: =518
+        Y: =202
+        Width: =120
+        Height: =26
+        Text: ="Active Flows"
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    - Card3Bg As rectangle:
+        X: =664
+        Y: =148
+        Width: =196
+        Height: =90
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - Card3Icon As label:
+        X: =676
+        Y: =148
+        Width: =44
+        Height: =90
+        Text: ="⏸"
+        Size: =22
+        Color: =RGBA(196, 43, 28, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - Card3Val As label:
+        X: =726
+        Y: =160
+        Width: =120
+        Height: =40
+        Text: =Text(CountRows(Filter(gCloudFlows, state = "disabled")))
+        Size: =26
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Card3Lbl As label:
+        X: =726
+        Y: =202
+        Width: =120
+        Height: =26
+        Text: ="Inactive Flows"
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    - Card4Bg As rectangle:
+        X: =872
+        Y: =148
+        Width: =196
+        Height: =90
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - Card4Icon As label:
+        X: =884
+        Y: =148
+        Width: =44
+        Height: =90
+        Text: ="🖥"
+        Size: =22
+        Color: =RGBA(107, 33, 168, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - Card4Val As label:
+        X: =934
+        Y: =160
+        Width: =120
+        Height: =40
+        Text: =Text(CountRows(gDesktopFlows))
+        Size: =26
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Card4Lbl As label:
+        X: =934
+        Y: =202
+        Width: =120
+        Height: =26
+        Text: ="Desktop Flows"
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    - Card5Bg As rectangle:
+        X: =1080
+        Y: =148
+        Width: =196
+        Height: =90
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - Card5Icon As label:
+        X: =1092
+        Y: =148
+        Width: =44
+        Height: =90
+        Text: ="📱"
+        Size: =22
+        Color: =RGBA(14, 116, 144, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - Card5Val As label:
+        X: =1142
+        Y: =160
+        Width: =120
+        Height: =40
+        Text: =Text(CountRows(gPowerApps))
+        Size: =26
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Card5Lbl As label:
+        X: =1142
+        Y: =202
+        Width: =120
+        Height: =26
+        Text: ="Power Apps"
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+    # ── Navigation tiles
+    - Tile1Bg As rectangle:
+        X: =248
+        Y: =258
+        Width: =284
+        Height: =170
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =12
+        RadiusTopRight: =12
+        RadiusBottomLeft: =12
+        RadiusBottomRight: =12
+    - Tile1Accent As rectangle:
+        X: =248
+        Y: =258
+        Width: =284
+        Height: =4
+        Fill: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+    - Tile1Icon As label:
+        X: =268
+        Y: =272
+        Width: =40
+        Height: =40
+        Text: ="☁"
+        Size: =26
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile1Title As label:
+        X: =268
+        Y: =316
+        Width: =244
+        Height: =28
+        Text: ="Cloud Flows"
+        Size: =15
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile1Desc As label:
+        X: =268
+        Y: =346
+        Width: =244
+        Height: =40
+        Text: ="Scheduled, automated and instant cloud flows."
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile1Btn As button:
+        X: =432
+        Y: =390
+        Width: =88
+        Height: =32
+        Text: ="Open →"
+        Fill: =RGBA(15, 108, 189, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(CloudFlowsScreen)
+
+    - Tile2Bg As rectangle:
+        X: =548
+        Y: =258
+        Width: =284
+        Height: =170
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =12
+        RadiusTopRight: =12
+        RadiusBottomLeft: =12
+        RadiusBottomRight: =12
+    - Tile2Accent As rectangle:
+        X: =548
+        Y: =258
+        Width: =284
+        Height: =4
+        Fill: =RGBA(107, 33, 168, 1)
+        BorderStyle: =BorderStyle.None
+    - Tile2Icon As label:
+        X: =568
+        Y: =272
+        Width: =40
+        Height: =40
+        Text: ="🖥"
+        Size: =26
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile2Title As label:
+        X: =568
+        Y: =316
+        Width: =244
+        Height: =28
+        Text: ="Desktop Flows"
+        Size: =15
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile2Desc As label:
+        X: =568
+        Y: =346
+        Width: =244
+        Height: =40
+        Text: ="RPA desktop flows with machines and run modes."
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile2Btn As button:
+        X: =732
+        Y: =390
+        Width: =88
+        Height: =32
+        Text: ="Open →"
+        Fill: =RGBA(107, 33, 168, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(DesktopFlowsScreen)
+
+    - Tile3Bg As rectangle:
+        X: =848
+        Y: =258
+        Width: =284
+        Height: =170
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =12
+        RadiusTopRight: =12
+        RadiusBottomLeft: =12
+        RadiusBottomRight: =12
+    - Tile3Accent As rectangle:
+        X: =848
+        Y: =258
+        Width: =284
+        Height: =4
+        Fill: =RGBA(14, 116, 144, 1)
+        BorderStyle: =BorderStyle.None
+    - Tile3Icon As label:
+        X: =868
+        Y: =272
+        Width: =40
+        Height: =40
+        Text: ="📱"
+        Size: =26
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile3Title As label:
+        X: =868
+        Y: =316
+        Width: =244
+        Height: =28
+        Text: ="Power Apps"
+        Size: =15
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile3Desc As label:
+        X: =868
+        Y: =346
+        Width: =244
+        Height: =40
+        Text: ="Canvas and Model-Driven apps with sharing info."
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile3Btn As button:
+        X: =1032
+        Y: =390
+        Width: =88
+        Height: =32
+        Text: ="Open →"
+        Fill: =RGBA(14, 116, 144, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(PowerAppsScreen)
+
+    - Tile4Bg As rectangle:
+        X: =1148
+        Y: =258
+        Width: =190
+        Height: =170
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =12
+        RadiusTopRight: =12
+        RadiusBottomLeft: =12
+        RadiusBottomRight: =12
+    - Tile4Accent As rectangle:
+        X: =1148
+        Y: =258
+        Width: =190
+        Height: =4
+        Fill: =RGBA(180, 83, 9, 1)
+        BorderStyle: =BorderStyle.None
+    - Tile4Icon As label:
+        X: =1162
+        Y: =272
+        Width: =40
+        Height: =40
+        Text: ="🔑"
+        Size: =26
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile4Title As label:
+        X: =1162
+        Y: =316
+        Width: =166
+        Height: =28
+        Text: ="Admin Config"
+        Size: =14
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile4Desc As label:
+        X: =1162
+        Y: =346
+        Width: =166
+        Height: =40
+        Text: ="Set tenant credentials."
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - Tile4Btn As button:
+        X: =1216
+        Y: =390
+        Width: =110
+        Height: =32
+        Text: ="Configure →"
+        Fill: =RGBA(180, 83, 9, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(AdminScreen)

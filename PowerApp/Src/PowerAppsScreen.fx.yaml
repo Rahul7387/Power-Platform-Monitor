@@ -1,0 +1,352 @@
+- PowerAppsScreen As screen:
+    Fill: =RGBA(248, 250, 252, 1)
+    OnVisible: =ClearCollect(gFilteredPA, gPowerApps)
+
+    - PA_NavBg As rectangle:
+        X: =0
+        Y: =0
+        Width: =1366
+        Height: =56
+        Fill: =RGBA(15, 23, 42, 1)
+        BorderStyle: =BorderStyle.None
+    - PA_NavTitle As label:
+        X: =16
+        Y: =0
+        Width: =700
+        Height: =56
+        Text: ="Power Apps"
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_NavHome As button:
+        X: =1200
+        Y: =10
+        Width: =152
+        Height: =36
+        Text: ="🏠 Dashboard"
+        Fill: =RGBA(255, 255, 255, 0.15)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        OnSelect: =Navigate(HomeScreen)
+    - PA_SbBg As rectangle:
+        X: =0
+        Y: =56
+        Width: =220
+        Height: =712
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+    - PA_SbHomeBtn As button:
+        X: =0
+        Y: =70
+        Width: =220
+        Height: =38
+        Text: ="🏠  Dashboard"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(HomeScreen)
+    - PA_SbCloudBtn As button:
+        X: =0
+        Y: =116
+        Width: =220
+        Height: =38
+        Text: ="☁  Cloud Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(CloudFlowsScreen)
+    - PA_SbDesktopBtn As button:
+        X: =0
+        Y: =162
+        Width: =220
+        Height: =38
+        Text: ="🖥  Desktop Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(DesktopFlowsScreen)
+    - PA_SbHL As rectangle:
+        X: =0
+        Y: =208
+        Width: =220
+        Height: =38
+        Fill: =RGBA(224, 242, 247, 1)
+        BorderStyle: =BorderStyle.None
+    - PA_SbBar As rectangle:
+        X: =0
+        Y: =208
+        Width: =3
+        Height: =38
+        Fill: =RGBA(14, 116, 144, 1)
+        BorderStyle: =BorderStyle.None
+    - PA_SbAppsLabel As label:
+        X: =14
+        Y: =208
+        Width: =206
+        Height: =38
+        Text: ="📱  Power Apps"
+        Size: =13
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(14, 116, 144, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_SbDiv As rectangle:
+        X: =0
+        Y: =256
+        Width: =220
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - PA_SbAdminBtn As button:
+        X: =12
+        Y: =266
+        Width: =196
+        Height: =36
+        Text: ="⚙  Admin Config"
+        Fill: =RGBA(235, 243, 251, 1)
+        Color: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(AdminScreen)
+    - PA_PageBg As rectangle:
+        X: =220
+        Y: =56
+        Width: =1146
+        Height: =712
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderStyle: =BorderStyle.None
+    - PA_Title As label:
+        X: =248
+        Y: =76
+        Width: =500
+        Height: =32
+        Text: ="Power Apps"
+        Size: =20
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - PA_Sub As label:
+        X: =248
+        Y: =110
+        Width: =500
+        Height: =22
+        Text: =Concatenate(Text(CountRows(gFilteredPA)), " / ", Text(CountRows(gPowerApps)), " apps")
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - PA_TbBg As rectangle:
+        X: =248
+        Y: =144
+        Width: =1090
+        Height: =52
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =8
+        RadiusTopRight: =8
+        RadiusBottomLeft: =8
+        RadiusBottomRight: =8
+    - PA_Search As text:
+        X: =260
+        Y: =152
+        Width: =280
+        Height: =36
+        HintText: ="🔍  Search apps or owners…"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        OnChange: |-
+            =ClearCollect(gFilteredPA,
+                Filter(gPowerApps,
+                    IsBlank(PA_Search.Text) ||
+                    PA_Search.Text in name ||
+                    PA_Search.Text in properties.owner.userPrincipalName))
+    - PA_TypeDd As dropdown:
+        X: =552
+        Y: =152
+        Width: =180
+        Height: =36
+        Items: =["All Types", "Canvas", "ModelDriven"]
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+    - PA_HdrBg As rectangle:
+        X: =248
+        Y: =206
+        Width: =1090
+        Height: =34
+        Fill: =RGBA(241, 245, 249, 1)
+        RadiusTopLeft: =6
+        RadiusTopRight: =6
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        BorderStyle: =BorderStyle.None
+    - PA_HdrName As label:
+        X: =260
+        Y: =206
+        Width: =248
+        Height: =34
+        Text: ="App Name"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_HdrType As label:
+        X: =518
+        Y: =206
+        Width: =114
+        Height: =34
+        Text: ="Type"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_HdrSharing As label:
+        X: =642
+        Y: =206
+        Width: =150
+        Height: =34
+        Text: ="Sharing"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_HdrPublished As label:
+        X: =802
+        Y: =206
+        Width: =160
+        Height: =34
+        Text: ="Published"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_HdrOwner As label:
+        X: =972
+        Y: =206
+        Width: =190
+        Height: =34
+        Text: ="Owner"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - PA_Gallery As gallery.galleryVertical:
+        X: =248
+        Y: =240
+        Width: =1090
+        Height: =526
+        Items: =gFilteredPA
+        TemplateSize: =56
+        ShowScrollbar: =true
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+        - PA_RowBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =1090
+            Height: =56
+            Fill: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(226, 232, 240, 1)
+            BorderThickness: =1
+            OnSelect: |-
+                =Set(gSelectedApp, ThisItem);
+                Set(gDetailType, "app");
+                Navigate(DetailScreen)
+        - PA_Icon As label:
+            X: =10
+            Y: =6
+            Width: =28
+            Height: =44
+            Text: =If(ThisItem.properties.appType = "ModelDriven", "⚙", "📱")
+            Size: =18
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - PA_Name As label:
+            X: =42
+            Y: =6
+            Width: =244
+            Height: =44
+            Text: =Coalesce(ThisItem.properties.displayName, ThisItem.name)
+            Size: =13
+            FontWeight: =FontWeight.Semibold
+            Color: =RGBA(15, 23, 42, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - PA_Type As label:
+            X: =296
+            Y: =6
+            Width: =114
+            Height: =44
+            Text: =Coalesce(ThisItem.properties.appType, "Canvas")
+            Size: =12
+            Color: =RGBA(14, 116, 144, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - PA_Sharing As label:
+            X: =420
+            Y: =6
+            Width: =150
+            Height: =44
+            Text: =If(Not(IsBlank(ThisItem.properties.sharedWithTenantEveryone)), "Everyone", "Specific")
+            Size: =12
+            Color: =RGBA(51, 65, 85, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - PA_Published As label:
+            X: =580
+            Y: =6
+            Width: =160
+            Height: =44
+            Text: =Text(DateTimeValue(ThisItem.properties.lastPublishedTime), "dd mmm yyyy")
+            Size: =12
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - PA_Owner As label:
+            X: =750
+            Y: =6
+            Width: =240
+            Height: =44
+            Text: =ThisItem.properties.owner.userPrincipalName
+            Size: =11
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - PA_ViewBtn As button:
+            X: =984
+            Y: =8
+            Width: =96
+            Height: =40
+            Text: ="Details →"
+            Fill: =RGBA(14, 116, 144, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            FontWeight: =FontWeight.Semibold
+            OnSelect: |-
+                =Set(gSelectedApp, ThisItem);
+                Set(gDetailType, "app");
+                Navigate(DetailScreen)

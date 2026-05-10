@@ -1,0 +1,443 @@
+- DetailScreen As screen:
+    Fill: =RGBA(248, 250, 252, 1)
+    OnVisible: |-
+        =Set(gDetailTab, "Info");
+        If(gDetailType <> "app",
+            ClearCollect(gFlowRuns,
+                PowerAutomateManagement.ListFlowRuns(gCurrentEnv, gSelectedFlow.name).value))
+
+    - DT_NavBg As rectangle:
+        X: =0
+        Y: =0
+        Width: =1366
+        Height: =56
+        Fill: =RGBA(15, 23, 42, 1)
+        BorderStyle: =BorderStyle.None
+    - DT_NavBack As button:
+        X: =12
+        Y: =10
+        Width: =100
+        Height: =36
+        Text: ="← Back"
+        Fill: =RGBA(255, 255, 255, 0.15)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        OnSelect: =Back()
+    - DT_NavTitle As label:
+        X: =122
+        Y: =0
+        Width: =700
+        Height: =56
+        Text: ="Detail View"
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+
+    - DT_SbBg As rectangle:
+        X: =0
+        Y: =56
+        Width: =220
+        Height: =712
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+    - DT_SbHomeBtn As button:
+        X: =0
+        Y: =70
+        Width: =220
+        Height: =38
+        Text: ="🏠  Dashboard"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(HomeScreen)
+    - DT_SbCloudBtn As button:
+        X: =0
+        Y: =116
+        Width: =220
+        Height: =38
+        Text: ="☁  Cloud Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(CloudFlowsScreen)
+    - DT_SbDesktopBtn As button:
+        X: =0
+        Y: =162
+        Width: =220
+        Height: =38
+        Text: ="🖥  Desktop Flows"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(DesktopFlowsScreen)
+    - DT_SbAppsBtn As button:
+        X: =0
+        Y: =208
+        Width: =220
+        Height: =38
+        Text: ="📱  Power Apps"
+        Fill: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        Align: =Align.Left
+        PaddingLeft: =14
+        OnSelect: =Navigate(PowerAppsScreen)
+    - DT_SbDiv As rectangle:
+        X: =0
+        Y: =256
+        Width: =220
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - DT_SbAdminBtn As button:
+        X: =12
+        Y: =266
+        Width: =196
+        Height: =36
+        Text: ="⚙  Admin Config"
+        Fill: =RGBA(235, 243, 251, 1)
+        Color: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Navigate(AdminScreen)
+
+    - DT_PageBg As rectangle:
+        X: =220
+        Y: =56
+        Width: =1146
+        Height: =712
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderStyle: =BorderStyle.None
+
+    # Left info panel
+    - DT_LCard As rectangle:
+        X: =248
+        Y: =74
+        Width: =374
+        Height: =688
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - DT_Name As label:
+        X: =264
+        Y: =88
+        Width: =342
+        Height: =52
+        Text: =If(gDetailType = "app", Coalesce(gSelectedApp.properties.displayName, gSelectedApp.name), gSelectedFlow.properties.displayName)
+        Size: =17
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_Status As label:
+        X: =264
+        Y: =142
+        Width: =342
+        Height: =26
+        Text: =If(gDetailType = "app", "Power App", If(gSelectedFlow.properties.state = "enabled", "● Active", "● Inactive"))
+        Size: =13
+        Color: =If(gDetailType = "app", RGBA(14,116,144,1), If(gSelectedFlow.properties.state = "enabled", RGBA(16,124,16,1), RGBA(196,43,28,1)))
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_Sep1 As rectangle:
+        X: =248
+        Y: =174
+        Width: =374
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - DT_LblType As label:
+        X: =264
+        Y: =182
+        Width: =124
+        Height: =26
+        Text: ="Type"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_ValType As label:
+        X: =394
+        Y: =182
+        Width: =214
+        Height: =26
+        Text: =If(gDetailType = "cloud", "Cloud Flow", If(gDetailType = "desktop", "Desktop Flow", "Power App"))
+        Size: =12
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_LblEnv As label:
+        X: =264
+        Y: =218
+        Width: =124
+        Height: =26
+        Text: ="Environment"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_ValEnv As label:
+        X: =394
+        Y: =218
+        Width: =214
+        Height: =26
+        Text: =gCurrentEnvName
+        Size: =12
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_LblOwner As label:
+        X: =264
+        Y: =254
+        Width: =124
+        Height: =26
+        Text: ="Owner"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_ValOwner As label:
+        X: =394
+        Y: =254
+        Width: =214
+        Height: =26
+        Text: =If(gDetailType = "app", gSelectedApp.properties.owner.userPrincipalName, gSelectedFlow.properties.creator.userPrincipalName)
+        Size: =12
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_LblModified As label:
+        X: =264
+        Y: =290
+        Width: =124
+        Height: =26
+        Text: ="Last Modified"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_ValModified As label:
+        X: =394
+        Y: =290
+        Width: =214
+        Height: =26
+        Text: =If(gDetailType = "app", Text(DateTimeValue(gSelectedApp.properties.lastPublishedTime), "dd mmm yyyy"), Text(DateTimeValue(gSelectedFlow.properties.lastModifiedTime), "dd mmm yyyy"))
+        Size: =12
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_LblID As label:
+        X: =264
+        Y: =326
+        Width: =124
+        Height: =26
+        Text: ="Resource ID"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_ValID As label:
+        X: =394
+        Y: =326
+        Width: =214
+        Height: =26
+        Text: =If(gDetailType = "app", gSelectedApp.name, gSelectedFlow.name)
+        Size: =11
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_BtnEnable As button:
+        X: =264
+        Y: =620
+        Width: =164
+        Height: =40
+        Text: ="▶  Enable"
+        Fill: =RGBA(16, 124, 16, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: |-
+            =If(gDetailType <> "app",
+                PowerAutomateManagement.EnableFlow(gCurrentEnv, gSelectedFlow.name);
+                Notify("Flow enabled", NotificationType.Success),
+                Notify("Manage via Admin Centre", NotificationType.Information))
+    - DT_BtnDisable As button:
+        X: =440
+        Y: =620
+        Width: =164
+        Height: =40
+        Text: ="⏸  Disable"
+        Fill: =RGBA(196, 43, 28, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: |-
+            =If(gDetailType <> "app",
+                PowerAutomateManagement.DisableFlow(gCurrentEnv, gSelectedFlow.name);
+                Notify("Flow disabled", NotificationType.Warning),
+                Notify("Manage via Admin Centre", NotificationType.Information))
+    - DT_BtnRun As button:
+        X: =264
+        Y: =670
+        Width: =340
+        Height: =42
+        Text: ="▷  Run Now / Launch"
+        Fill: =RGBA(15, 108, 189, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: |-
+            =If(gDetailType = "cloud",
+                PowerAutomateManagement.RunFlow(gCurrentEnv, gSelectedFlow.name, {inputs: {}}),
+                Notify("Launch triggered", NotificationType.Information))
+
+    # Right panel — Run History
+    - DT_RCard As rectangle:
+        X: =640
+        Y: =74
+        Width: =718
+        Height: =688
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+    - DT_RunHdr As label:
+        X: =656
+        Y: =82
+        Width: =400
+        Height: =30
+        Text: ="Run History"
+        Size: =15
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_RunSep As rectangle:
+        X: =640
+        Y: =118
+        Width: =718
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - DT_RHStatus As label:
+        X: =652
+        Y: =126
+        Width: =88
+        Height: =26
+        Text: ="Status"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_RHStart As label:
+        X: =748
+        Y: =126
+        Width: =160
+        Height: =26
+        Text: ="Start Time"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_RHDur As label:
+        X: =916
+        Y: =126
+        Width: =80
+        Height: =26
+        Text: ="Duration"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_RHErr As label:
+        X: =1004
+        Y: =126
+        Width: =346
+        Height: =26
+        Text: ="Error"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - DT_RunGallery As gallery.galleryVertical:
+        X: =640
+        Y: =154
+        Width: =718
+        Height: =600
+        Items: =SortByColumns(gFlowRuns, "startTime", SortOrder.Descending)
+        TemplateSize: =50
+        ShowScrollbar: =true
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+
+        - DT_RRowBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =718
+            Height: =50
+            Fill: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(226, 232, 240, 1)
+            BorderThickness: =1
+        - DT_RStat As label:
+            X: =12
+            Y: =4
+            Width: =88
+            Height: =42
+            Text: =ThisItem.status
+            Size: =12
+            Color: =Switch(ThisItem.status, "Succeeded", RGBA(16,124,16,1), "Failed", RGBA(196,43,28,1), "Running", RGBA(15,108,189,1), RGBA(100,116,139,1))
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DT_RStart As label:
+            X: =108
+            Y: =4
+            Width: =160
+            Height: =42
+            Text: =Text(DateTimeValue(ThisItem.startTime), "dd mmm hh:mm")
+            Size: =12
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DT_RDur As label:
+            X: =276
+            Y: =4
+            Width: =80
+            Height: =42
+            Text: =Concatenate(Text(Round(DateDiff(DateTimeValue(ThisItem.startTime), If(IsBlank(ThisItem.endTime), Now(), DateTimeValue(ThisItem.endTime)), TimeUnit.Seconds), "0")), "s")
+            Size: =12
+            Color: =RGBA(100, 116, 139, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+        - DT_RErr As label:
+            X: =364
+            Y: =4
+            Width: =346
+            Height: =42
+            Text: =Coalesce(ThisItem.error.message, "—")
+            Size: =11
+            Color: =RGBA(196, 43, 28, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None

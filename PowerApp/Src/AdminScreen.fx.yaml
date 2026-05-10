@@ -1,0 +1,247 @@
+- AdminScreen As screen:
+    Fill: =RGBA(248, 250, 252, 1)
+
+    - AD_NavBg As rectangle:
+        X: =0
+        Y: =0
+        Width: =1366
+        Height: =56
+        Fill: =RGBA(15, 23, 42, 1)
+        BorderStyle: =BorderStyle.None
+    - AD_NavBack As button:
+        X: =12
+        Y: =10
+        Width: =100
+        Height: =36
+        Text: ="← Back"
+        Fill: =RGBA(255, 255, 255, 0.15)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        OnSelect: =Back()
+    - AD_NavTitle As label:
+        X: =122
+        Y: =0
+        Width: =700
+        Height: =56
+        Text: ="Admin Configuration"
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        VerticalAlign: =VerticalAlign.Middle
+    - AD_Card As rectangle:
+        X: =363
+        Y: =86
+        Width: =640
+        Height: =548
+        Fill: =RGBA(255, 255, 255, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        RadiusTopLeft: =12
+        RadiusTopRight: =12
+        RadiusBottomLeft: =12
+        RadiusBottomRight: =12
+    - AD_Accent As rectangle:
+        X: =363
+        Y: =86
+        Width: =640
+        Height: =4
+        Fill: =RGBA(15, 108, 189, 1)
+        BorderStyle: =BorderStyle.None
+    - AD_H1 As label:
+        X: =387
+        Y: =102
+        Width: =592
+        Height: =34
+        Text: ="Service Principal Credentials"
+        Size: =17
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(15, 23, 42, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_H2 As label:
+        X: =387
+        Y: =138
+        Width: =592
+        Height: =22
+        Text: ="Credentials stored in session memory only — never persisted to disk."
+        Size: =12
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_Sep1 As rectangle:
+        X: =363
+        Y: =166
+        Width: =640
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - AD_Warn As label:
+        X: =387
+        Y: =174
+        Width: =592
+        Height: =36
+        Text: ="⚠  Use an App Registration with Application permissions and Admin Consent granted."
+        Size: =12
+        Color: =RGBA(180, 83, 9, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_LblTenant As label:
+        X: =387
+        Y: =226
+        Width: =290
+        Height: =20
+        Text: ="Tenant ID *"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_InTenant As text:
+        X: =387
+        Y: =246
+        Width: =290
+        Height: =38
+        HintText: ="Azure AD → Overview → Directory ID"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        Size: =13
+    - AD_LblEnv As label:
+        X: =693
+        Y: =226
+        Width: =290
+        Height: =20
+        Text: ="Environment ID"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_InEnv As text:
+        X: =693
+        Y: =246
+        Width: =290
+        Height: =38
+        HintText: ="Leave blank for Default environment"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        Size: =13
+    - AD_LblClient As label:
+        X: =387
+        Y: =306
+        Width: =290
+        Height: =20
+        Text: ="Client ID *"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_InClient As text:
+        X: =387
+        Y: =326
+        Width: =290
+        Height: =38
+        HintText: ="App Registrations → Application (client) ID"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        Size: =13
+    - AD_LblSecret As label:
+        X: =693
+        Y: =306
+        Width: =290
+        Height: =20
+        Text: ="Client Secret *"
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(51, 65, 85, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_InSecret As text:
+        X: =693
+        Y: =326
+        Width: =290
+        Height: =38
+        HintText: ="Certificates & Secrets → Value"
+        Default: =""
+        Fill: =RGBA(248, 250, 252, 1)
+        BorderColor: =RGBA(226, 232, 240, 1)
+        Color: =RGBA(15, 23, 42, 1)
+        Size: =13
+    - AD_Perms As label:
+        X: =387
+        Y: =382
+        Width: =592
+        Height: =32
+        Text: ="Permissions needed: Flow.Read.All · Flow.Manage.All · PowerApps.Read.All · User.Read.All"
+        Size: =11
+        Color: =RGBA(100, 116, 139, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_Sep2 As rectangle:
+        X: =363
+        Y: =422
+        Width: =640
+        Height: =1
+        Fill: =RGBA(226, 232, 240, 1)
+        BorderStyle: =BorderStyle.None
+    - AD_ConnStatus As label:
+        X: =387
+        Y: =432
+        Width: =592
+        Height: =26
+        Text: =If(gAdminConnected, "✅  Connected — all tenant assets visible", "❌  Not connected")
+        Size: =13
+        Color: =If(gAdminConnected, RGBA(16,124,16,1), RGBA(196,43,28,1))
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_HideNote As label:
+        X: =387
+        Y: =614
+        Width: =592
+        Height: =16
+        Text: ="To hide this screen button: set gHideAdminForever = true in App.OnStart"
+        Size: =10
+        Color: =RGBA(150, 150, 150, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+    - AD_BtnSave As button:
+        X: =773
+        Y: =572
+        Width: =218
+        Height: =40
+        Text: ="💾  Save & Connect"
+        Fill: =RGBA(15, 108, 189, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        FontWeight: =FontWeight.Semibold
+        OnSelect: |-
+            =If(IsBlank(AD_InTenant.Text) || IsBlank(AD_InClient.Text) || IsBlank(AD_InSecret.Text),
+                Notify("Tenant ID, Client ID and Secret are required", NotificationType.Error),
+                Set(gTenantId, AD_InTenant.Text);
+                Set(gClientId, AD_InClient.Text);
+                Set(gClientSecret, AD_InSecret.Text);
+                Set(gEnvId, If(IsBlank(AD_InEnv.Text), "Default", AD_InEnv.Text));
+                Set(gCurrentEnvName, If(IsBlank(AD_InEnv.Text), "Default Environment", AD_InEnv.Text));
+                Set(gAdminConnected, true);
+                ClearCollect(gCloudFlows, PowerAutomateManagement.ListFlows(gTenantId).value);
+                ClearCollect(gDesktopFlows, PowerAutomateManagement.ListDesktopFlows(gTenantId).value);
+                ClearCollect(gPowerApps, PowerAppsforMakers.GetApps().value);
+                Notify("Connected — all tenant data loaded", NotificationType.Success);
+                Navigate(HomeScreen))
+    - AD_BtnCancel As button:
+        X: =387
+        Y: =572
+        Width: =110
+        Height: =40
+        Text: ="Cancel"
+        Fill: =RGBA(241, 245, 249, 1)
+        Color: =RGBA(51, 65, 85, 1)
+        BorderStyle: =BorderStyle.None
+        OnSelect: =Back()
