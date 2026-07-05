@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power Platform Monitor</title>
+<style>
+  :root{ --purple:#742774; --border:#E1DFDD; --text:#201F1E; --text-secondary:#605E5C; --success:#107C10; }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;background:#F3F2F1;color:var(--text);}
+  .hero{background:linear-gradient(120deg,#742774 0%,#0066FF 100%);color:#fff;padding:44px 24px 52px;text-align:center;}
+  .hero .eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#e6d9f5;font-weight:700;}
+  .hero h1{font-size:26px;margin:10px 0;}
+  .hero p{font-size:13.5px;color:#eee2f7;max-width:640px;margin:0 auto;line-height:1.6;}
+  .back-link{display:inline-block;margin-top:16px;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:6px 16px;border-radius:20px;font-size:12px;text-decoration:none;}
+
+  .container{max-width:950px;margin:-26px auto 0;padding:0 24px 60px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:14px;margin-bottom:24px;}
+  .feature{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
+  .feature .icon{font-size:18px;}
+  .feature .t{font-size:12.5px;font-weight:800;margin-top:6px;}
+  .feature .d{font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.5;}
+
+  .preview-card{background:#fff;border:2px solid var(--purple);border-radius:12px;padding:20px 22px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.08);}
+  .preview-card .badge{font-size:10px;font-weight:800;background:#F3E9FB;color:#5c2d82;padding:3px 10px;border-radius:8px;}
+  .preview-card h3{margin:10px 0;font-size:15px;}
+  .preview-card p{font-size:12px;color:var(--text-secondary);margin-bottom:14px;}
+  .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .btn{padding:10px 18px;border-radius:8px;font-size:12.5px;font-weight:700;text-decoration:none;}
+  .btn.primary{background:var(--purple);color:#fff;}
+  .btn.secondary{background:#F3F2F1;color:var(--text);}
+
+  .footer{text-align:center;margin-top:30px;font-size:12px;color:var(--text-secondary);}
+  .footer a{color:var(--purple);}
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="eyebrow">Power Apps Canvas App · Admin Tooling</div>
+    <h1>Power Platform Monitor</h1>
+    <p>A Canvas App for Power Apps that gives admins a single dashboard to monitor all Cloud Flows, Desktop Flows, and Power Apps across a Microsoft 365 tenant — with live status, run history, search/filter, and enable/disable controls.</p>
+    <a class="back-link" href="https://rahul7387.github.io/power-platform-portfolio-hub/">← Back to Portfolio Hub</a>
+  </div>
+
+  <div class="container">
+
+    <div class="grid">
+      <div class="feature"><span class="icon">🏠</span><div class="t">Dashboard</div><div class="d">Stat cards: total/active/inactive flows, desktop flows, apps count</div></div>
+      <div class="feature"><span class="icon">☁</span><div class="t">Cloud Flows</div><div class="d">Full list with search, status filter, trigger type, owner, last run status</div></div>
+      <div class="feature"><span class="icon">🖥</span><div class="t">Desktop Flows</div><div class="d">RPA flows via Dataverse — machine, run mode, status, owner</div></div>
+      <div class="feature"><span class="icon">📱</span><div class="t">Power Apps</div><div class="d">Canvas &amp; Model-Driven apps — sharing, type, owner, published date</div></div>
+    </div>
+
+    <div class="preview-card">
+      <span class="badge">📄 CANVAS APP SOURCE — EXPORTED</span>
+      <h3>Live HTML Preview</h3>
+      <p>This repo ships an exported Canvas App source (Connections, DataSources, Themes, Manifest) plus a standalone HTML preview of the app's screens.</p>
+      <div class="btn-row">
+        <a class="btn primary" href="./PreviewApp/PowerPlatformMonitor_Preview.html">Open App Preview</a>
+        <a class="btn secondary" href="./README.md">Read Full README</a>
+        <a class="btn secondary" href="https://github.com/Rahul7387/Power-Platform-Monitor">View on GitHub</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      To use this app live, import the <code>Src</code>/manifest package into your own Power Apps environment.<br>
+      <a href="https://rahul7387.github.io/power-platform-portfolio-hub/">Back to Portfolio Hub</a>
+    </div>
+  </div>
+
+</body>
+</html>
